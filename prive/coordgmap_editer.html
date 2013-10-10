@@ -1,0 +1,60 @@
+#CACHE{0}
+<input type="hidden" name="lat" id="champ_lat_#ID_ADRESSE" value="[(#LAT|floatval|sinon{0})]" />
+<input type="hidden" name="lng" id="champ_lng_#ID_ADRESSE" value="[(#LNG|floatval|sinon{0})]" />
+<div id="map_canvas" style="height:300px; margin: 8px 10px;"></div>
+<script type="text/javascript">
+function coordgmap_init() {
+	geocoder = new google.maps.Geocoder();
+	var myLatLng = new google.maps.LatLng(jQuery('#champ_lat_#ID_ADRESSE').val(), jQuery('#champ_lng_#ID_ADRESSE').val());
+	var myOptions = {
+		center: myLatLng,
+		zoom: 16,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	coordgmap_map_#ID_ADRESSE = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	var myLatlng = myLatLng;
+	coordgmap_marker_#ID_ADRESSE = new google.maps.Marker({
+		position: myLatlng,
+		map: coordgmap_map_#ID_ADRESSE,
+		draggable: true
+	});
+	google.maps.event.addListener(coordgmap_marker_#ID_ADRESSE, 'dragend', function() {
+		coordgmap_updatepos();
+	});
+	jQuery('#champ_voie, #champ_complement, #champ_code_postal, #champ_ville, #champ_pays').bind('change', function () {
+		var address = '';
+		jQuery('#champ_voie, #champ_complement, #champ_code_postal, #champ_ville, #champ_pays').each(function () {
+			if (jQuery(this).val() != '') address += jQuery(this).val() + ', ';
+		});
+		coordgmap_geocode(address.substring(0, address.length-2));
+	});
+	
+}
+
+function coordgmap_geocode(address) {
+	if ((address != '') && geocoder) {
+		geocoder.geocode( { 'address': address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+					if (coordgmap_map_#ID_ADRESSE.getZoom() < 16) coordgmap_map_#ID_ADRESSE.setZoom(16);
+					coordgmap_map_#ID_ADRESSE.setCenter(results[0].geometry.location);
+					coordgmap_marker_#ID_ADRESSE.setPosition(results[0].geometry.location);
+					coordgmap_updatepos();
+				} else {
+					alert("Aucun résultat");
+				}
+			} else {
+				alert("Erreur lors du géocodage : " + status);
+			}
+		});
+	}
+}
+
+function coordgmap_updatepos() {
+	var pos = coordgmap_marker_#ID_ADRESSE.getPosition();
+	jQuery('#champ_lat_#ID_ADRESSE').val(pos.lat());
+	jQuery('#champ_lng_#ID_ADRESSE').val(pos.lng());
+}
+
+</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&callback=coordgmap_init"> </script>
