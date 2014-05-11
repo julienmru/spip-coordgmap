@@ -1,5 +1,12 @@
 <?php
-if (!defined("_ECRIRE_INC_VERSION")) return;
+/**
+ * Plugin Coordonnées GoogleMap
+ * (c) 2014 Julen Tessier,Mist. GraphX
+ * Licence GNU/GPL
+ */
+
+if (!defined('_ECRIRE_INC_VERSION')) return;
+
 
 function coordgmap_editer_contenu_objet($flux){
 	if ($flux['args']['type'] == 'adresse') {
