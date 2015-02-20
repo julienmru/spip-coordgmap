@@ -1,0 +1,28 @@
+<paquet
+	prefix="coordgmap"
+	categorie="divers"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.0.16;3.0.*]"
+	logo=""
+	documentation="https://github.com/cahri/spip-coordgmap"
+	schema="1.0.0" 
+>
+	<!--
+		Paquet généré le 2014-05-11 11:21:27
+	-->
+
+	<nom>Coordonnées GoogleMap</nom>
+
+	<auteur>Julen Tessier,Mist. GraphX</auteur>
+
+	<licence>GNU/GPL</licence>
+        
+        
+	<pipeline nom="declarer_tables_principales" inclure="base/coordgmap.php" />
+	<pipeline nom="editer_contenu_objet" inclure="coordgmap_pipelines.php" />
+	<pipeline nom="pre_insertion" inclure="coordgmap_pipelines.php" />
+	<pipeline nom="pre_edition" inclure="coordgmap_pipelines.php" />
+        
+	<necessite nom="coordonnees" compatibilite="[1.4.20;[" />
+</paquet>
