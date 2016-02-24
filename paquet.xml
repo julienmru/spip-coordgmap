@@ -1,7 +1,7 @@
 <paquet
 	prefix="coordgmap"
 	categorie="divers"
-	version="1.0.0"
+	version="1.0.1"
 	etat="dev"
 	compatibilite="[3.0.16;3.0.*]"
 	logo=""
@@ -24,5 +24,5 @@
 	<pipeline nom="pre_insertion" inclure="coordgmap_pipelines.php" />
 	<pipeline nom="pre_edition" inclure="coordgmap_pipelines.php" />
         
-	<necessite nom="coordonnees" compatibilite="[1.4.20;[" />
+	<necessite nom="coordonnees" compatibilite="[2.3.6;[" />
 </paquet>
