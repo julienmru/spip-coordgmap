@@ -1,9 +1,9 @@
 <paquet
 	prefix="coordgmap"
 	categorie="divers"
-	version="1.0.1"
+	version="1.0.2"
 	etat="dev"
-	compatibilite="[3.0.16;3.0.*]"
+	compatibilite="[3.0.16;3.1.*]"
 	logo=""
 	documentation="https://github.com/cahri/spip-coordgmap"
 	schema="1.0.0" 
